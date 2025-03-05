@@ -21,14 +21,14 @@ public class LoginController {
             Integer idAdmin = admin.auth(c);    
             admin.setIdAdmin(idAdmin);
             session.add("admin", admin);
-            m.addObject("success", "Connected successfuly.");
+            // m.addObject("success", "Connected successfuly.");
         }
         catch (SQLException sqle) {
             sqle.printStackTrace();
         }
         catch(Exception e) {
             m.setUrl("login.jsp");
-            m.addObject("error", e.getMessage(), session);
+            m.addObject("error", e.getMessage());
             e.printStackTrace();
         }
         

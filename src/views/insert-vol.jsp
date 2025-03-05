@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="idVille">Ville</label>
+                    <label class="col-sm-2 col-form-label" for="idVille">Ville de depart</label>
                     <div class="col-sm-10">
                         <select class="form-control" id="idVille" name="vol.idVille" required>
                             <% List<Ville> villes = Ville.getAll();
@@ -42,9 +42,19 @@
                         </select>
                     </div>
                 </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="idVille_1">Ville d'arrivee</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="idVille_1" name="vol.idVille_1" required>
+                            <% for (Ville ville : villes) {%>
+                                <option value="<%= ville.getIdVille() %>"><%= ville.getNomVille() %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                </div>
                 <div>
-                    <% String error = (String) session.getAttribute("error"); 
-                    String success = (String) session.getAttribute("success"); 
+                    <% String error = (String) request.getAttribute("error"); 
+                    String success = (String) request.getAttribute("success"); 
                     if (error != null && !error.isEmpty()) { %>
                         <div class="alert alert-danger" role="alert">
                             <strong>Erreur </strong> : <%= error %>
@@ -54,15 +64,6 @@
                             <%= success %>
                         </div>
                     <% } %>
-                    
-                  <% Map<String, String> errors = (Map<String, String>) session.getAttribute("errors");
-                      if (errors != null && !errors.isEmpty()) { %>
-                        <% for (Map.Entry<String, String> entry : errors.entrySet()) { %>
-                          <div class="alert alert-warning" role="alert">
-                            <strong><%= entry.getKey() %></strong> : <%= entry.getValue() %></li>
-                          </div>
-                        <% } %>
-                  <% } %>
                 </div>
                 <div class="row justify-content-end">
                     <div class="col-sm-10">

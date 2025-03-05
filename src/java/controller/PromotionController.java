@@ -23,13 +23,13 @@ public class PromotionController {
             boolean response = NombreSiege.checkLeftSiege(avion.getIdAvion(), promotion.getIdTypeSiege(), promotion.getNombreSiege());
             if (response) {
                 promotion.save(c);
-                m.addObject("success", "Insertion done successfuly.", session);
+                m.addObject("success", "Insertion done successfuly.");
             }
             else {
-                m.addObject("error", "Le nombre de siege a promouvoir ne doit pas etre superieur au nombre de siege de Type "+promotion.getIdTypeSiege()+" dans l\'avion.", session);
+                m.addObject("error", "Le nombre de siege a promouvoir ne doit pas etre superieur au nombre de siege de Type "+promotion.getIdTypeSiege()+" dans l\'avion.");
             }
         } catch (Exception e) {
-            m.addObject("error", e.getMessage(), session);
+            m.addObject("error", e.getMessage());
             e.printStackTrace();
         }
         return m;

@@ -5,19 +5,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import util.Connexion;
 import validation.annotation.NotEmpty;
+import validation.annotation.Min;
 
 public class ConstraintAnnulation {
     Integer idConstraintAnnulation;
 
     @NotEmpty
-    LocalDateTime heureAvantVol;
+    @Min(1)
+    Integer heureAvantVol;
     
     public ConstraintAnnulation() {}
-    public ConstraintAnnulation(Integer idConstraintAnnulation, LocalDateTime heureAvantVol) {
+    public ConstraintAnnulation(Integer idConstraintAnnulation, Integer heureAvantVol) {
         this.idConstraintAnnulation = idConstraintAnnulation;
         this.heureAvantVol = heureAvantVol;
     }
@@ -26,7 +26,7 @@ public class ConstraintAnnulation {
         String sql = "INSERT INTO constraint_annulation (heure_avant_vol) VALUES (?)";
         PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         try  {
-            stmt.setTimestamp(1, Timestamp.valueOf(this.getHeureAvantVol()));
+            stmt.setObject(1, this.getHeureAvantVol());
 
             int affectedRows = stmt.executeUpdate();
             if (affectedRows > 0) {
@@ -54,10 +54,7 @@ public class ConstraintAnnulation {
                 if (rs.next()) {
                     constraint = new ConstraintAnnulation();
                     constraint.setIdConstraintAnnulation(rs.getInt("id_constraint_annulation"));
-                    Timestamp timestamp = rs.getTimestamp("heure_avant_vol");
-                    if (timestamp != null) {
-                        constraint.setHeureAvantVol(timestamp.toLocalDateTime());
-                    }
+                    constraint.setHeureAvantVol(rs.getInt("heure_avant_vol"));
                 }
             }
         } catch (SQLException e) {
@@ -82,11 +79,10 @@ public class ConstraintAnnulation {
         this.idConstraintAnnulation = idConstraintAnnulation;
     }
 
-    public LocalDateTime getHeureAvantVol() {
+    public Integer getHeureAvantVol() {
         return heureAvantVol;
     }
-
-    public void setHeureAvantVol(LocalDateTime heureAvantVol) {
+    public void setHeureAvantVol(Integer heureAvantVol) {
         this.heureAvantVol = heureAvantVol;
     }
     

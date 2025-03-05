@@ -34,6 +34,9 @@ echo Copying jsp files in views...
 rem copier le répertoire views dans temp
 xcopy "%projectPath%\src\views" "%tempPath%\views\" /i
 xcopy "%projectPath%\index.jsp" "%tempPath%\" /i
+xcopy "%projectPath%\error.jsp" "%tempPath%\views" /i
+xcopy "%projectPath%\notFound.jsp" "%tempPath%\views" /i
+xcopy "%projectPath%\indexFront.jsp" "%tempPath%\" /i
 echo Jsp files copied successfuly. 
 echo.
 
@@ -73,4 +76,4 @@ pause
 
 @REM echo Ouverture microsoft edge...
 @REM start msedge http://localhost:8888
-pause
+@REM pause

@@ -9,7 +9,7 @@
   class="light-style customizer-hide"
   dir="ltr"
   data-theme="theme-default"
-  data-assets-path="https://cdn.jsdelivr.net/gh/CedtT198/ticketing-assets@main/assets/"
+  data-assets-path="https://cdn.jsdelivr.net/gh/CedtT198/poc-ticketing-assets@main/assets/"
   data-template="vertical-menu-template-free">
   <head>
     <meta charset="utf-8" />
@@ -18,20 +18,20 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
     <title>Login Administrator</title>
     <meta name="description" content="" />
-    <link rel="icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/CedtT198/ticketing-assets@main/assets/img/favicon/avion.ico" />
+    <link rel="icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/CedtT198/poc-ticketing-assets@main/assets/img/favicon/avion.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
       rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/CedtT198/ticketing-assets@main/assets/vendor/fonts/boxicons.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/CedtT198/ticketing-assets@main/assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/CedtT198/ticketing-assets@main/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/CedtT198/ticketing-assets@main/assets/css/demo.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/CedtT198/ticketing-assets@main/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/CedtT198/ticketing-assets@main/assets/vendor/css/pages/page-auth.css" />
-    <script src="https://cdn.jsdelivr.net/gh/CedtT198/ticketing-assets@main/assets/vendor/js/helpers.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/CedtT198/ticketing-assets@main/assets/js/config.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/CedtT198/poc-ticketing-assets@main/assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/CedtT198/poc-ticketing-assets@main/assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/CedtT198/poc-ticketing-assets@main/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/CedtT198/poc-ticketing-assets@main/assets/css/demo.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/CedtT198/poc-ticketing-assets@main/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/CedtT198/poc-ticketing-assets@main/assets/vendor/css/pages/page-auth.css" />
+    <script src="https://cdn.jsdelivr.net/gh/CedtT198/poc-ticketing-assets@main/assets/vendor/js/helpers.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/CedtT198/poc-ticketing-assets@main/assets/js/config.js"></script>
   </head>
 
   <body>
@@ -80,7 +80,7 @@
                   </div>
                 </div>
                 <div>
-                  <% String error = (String) session.getAttribute("error"); 
+                  <% String error = (String) request.getAttribute("error"); 
                   if (error != null && !error.isEmpty()) { %>
                     <div class="alert alert-danger" role="alert">
                         <strong>Erreur </strong> : <%= error %>
@@ -97,6 +97,21 @@
                   <% } %>
                 </div>
 
+                <% String success = (String) request.getAttribute("success"); 
+                if (success != null && !success.isEmpty()) { %>
+                  <%-- <div class="bs-toast toast toast-placement-ex m-2 fade bg-info top-0 start-0 show" role="alert" aria-live="assertive" aria-atomic="true" aria-delay="3000">
+                    <div class="toast-header">
+                      <i class="bx bx-bell me-2"></i>
+                      <div class="me-auto fw-semibold">Notification</div>
+                      <small></small>
+                      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                            <%= success %>
+                    </div>
+                  </div> --%>
+                <% } %>
+
                 <div class="mb-3">
                   <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
                 </div>
@@ -108,12 +123,12 @@
       </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/gh/CedtT198/ticketing-assets@main/assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/CedtT198/ticketing-assets@main/assets/vendor/libs/popper/popper.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/CedtT198/ticketing-assets@main/assets/vendor/js/bootstrap.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/CedtT198/ticketing-assets@main/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/CedtT198/ticketing-assets@main/assets/vendor/js/menu.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/CedtT198/ticketing-assets@main/assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/CedtT198/poc-ticketing-assets@main/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/CedtT198/poc-ticketing-assets@main/assets/vendor/libs/popper/popper.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/CedtT198/poc-ticketing-assets@main/assets/vendor/js/bootstrap.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/CedtT198/poc-ticketing-assets@main/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/CedtT198/poc-ticketing-assets@main/assets/vendor/js/menu.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/CedtT198/poc-ticketing-assets@main/assets/js/main.js"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
 </html>

@@ -5,6 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
 import util.Connexion;
 import validation.annotation.Min;
 import validation.annotation.Max;
@@ -56,6 +60,32 @@ public class Promotion {
         }
         return this;
     }
+
+    
+    public static List<Promotion> getAllByVol(Integer idVol) {
+        List<Promotion> promotions = new ArrayList<>();
+        String sql = "SELECT id_vol, nombre_siege, pourcentage FROM promotion WHERE id_vol = ?";
+
+        try (Connection conn = Connexion.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idVol);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Promotion prom = new Promotion();
+                    prom.setIdVol(rs.getInt("id_vol"));
+                    prom.setNombreSiege(rs.getInt("nombre_siege"));
+                    prom.setPourcentage(rs.getDouble("pourcentage"));
+    
+                    promotions.add(prom);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return promotions;
+    }
+
 
     public Integer getIdTypeSiege() {
         return idTypeSiege;

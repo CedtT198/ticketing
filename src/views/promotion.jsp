@@ -50,8 +50,8 @@
                     </div>
                 </div>
                 <div>
-                    <% String error = (String) session.getAttribute("error"); 
-                    String success = (String) session.getAttribute("success"); 
+                    <% String error = (String) request.getAttribute("error"); 
+                    String success = (String) request.getAttribute("success"); 
                     if (error != null && !error.isEmpty()) { %>
                         <div class="alert alert-danger" role="alert">
                             <strong>Erreur </strong> : <%= error %>
@@ -61,15 +61,6 @@
                             <%= success %>
                         </div>
                     <% } %>
-                    
-                  <% Map<String, String> errors = (Map<String, String>) session.getAttribute("errors");
-                      if (errors != null && !errors.isEmpty()) { %>
-                        <% for (Map.Entry<String, String> entry : errors.entrySet()) { %>
-                          <div class="alert alert-warning" role="alert">
-                            <strong><%= entry.getKey() %></strong> : <%= entry.getValue() %></li>
-                          </div>
-                        <% } %>
-                  <% } %>
                 </div>
                 <div class="row justify-content-end">
                     <div class="col-sm-10">

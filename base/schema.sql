@@ -46,21 +46,18 @@ CREATE TABLE nombre_siege(
 CREATE TABLE utilisateur(
    id_utilisateur SERIAL,
    nom VARCHAR(50) ,
-   prenom VARCHAR(50) ,
-   mail VARCHAR(50) ,
-   password VARCHAR(50) ,
    PRIMARY KEY(id_utilisateur)
 );
 
 CREATE TABLE constraint_reservation(
    id_constraint_reservation SERIAL,
-   heure_avant_vol TIMESTAMP,
+   heure_avant_vol INTEGER,
    PRIMARY KEY(id_constraint_reservation)
 );
 
 CREATE TABLE constraint_annulation(
    id_constraint_annulation SERIAL,
-   heure_avant_vol TIMESTAMP,
+   heure_avant_vol INTEGER,
    PRIMARY KEY(id_constraint_annulation)
 );
 
@@ -74,14 +71,16 @@ CREATE TABLE admin(
 CREATE TABLE vol(
    id_vol SERIAL,
    date_vol TIMESTAMP,
+   id_ville INTEGER NOT NULL,
    id_constraint_reservation INTEGER,
    id_constraint_annulation INTEGER,
-   id_ville INTEGER NOT NULL,
+   id_ville_1 INTEGER NOT NULL,
    id_avion INTEGER NOT NULL,
    PRIMARY KEY(id_vol),
+   FOREIGN KEY(id_ville) REFERENCES ville(id_ville) ON DELETE CASCADE ON UPDATE CASCADE,
    FOREIGN KEY(id_constraint_reservation) REFERENCES constraint_reservation(id_constraint_reservation) ON DELETE CASCADE ON UPDATE CASCADE,
    FOREIGN KEY(id_constraint_annulation) REFERENCES constraint_annulation(id_constraint_annulation) ON DELETE CASCADE ON UPDATE CASCADE,
-   FOREIGN KEY(id_ville) REFERENCES ville(id_ville) ON DELETE CASCADE ON UPDATE CASCADE,
+   FOREIGN KEY(id_ville_1) REFERENCES ville(id_ville) ON DELETE CASCADE ON UPDATE CASCADE,
    FOREIGN KEY(id_avion) REFERENCES avion(id_avion) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -89,9 +88,11 @@ CREATE TABLE histo_reservation(
    id_histo_reservation SERIAL,
    date_histo_reservation TIMESTAMP,
    prix NUMERIC(15,2)  ,
+   id_type_siege INTEGER NOT NULL,
    id_vol INTEGER NOT NULL,
    id_utilisateur INTEGER NOT NULL,
    PRIMARY KEY(id_histo_reservation),
+   FOREIGN KEY(id_type_siege) REFERENCES type_siege(id_type_siege) ON DELETE CASCADE ON UPDATE CASCADE,
    FOREIGN KEY(id_vol) REFERENCES vol(id_vol) ON DELETE CASCADE ON UPDATE CASCADE,
    FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -105,3 +106,4 @@ CREATE TABLE promotion(
    FOREIGN KEY(id_type_siege) REFERENCES type_siege(id_type_siege) ON DELETE CASCADE ON UPDATE CASCADE,
    FOREIGN KEY(id_vol) REFERENCES vol(id_vol) ON DELETE CASCADE ON UPDATE CASCADE
 );
+

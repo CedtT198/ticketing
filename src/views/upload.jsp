@@ -1,34 +1,17 @@
-<%@page import="model.Avion" %>
-<%@page import="model.Vol" %>
-<%@page import="java.util.ArrayList" %>
-<%@page import="java.util.List" %>
-<%@page import="java.util.Map" %>
-
-<%@include file="header.jsp"%>
+<%@include file="headerFront.jsp"%>
 
 <div class="row">
     <div class="card mb-4">
         <div class="card-header d-flex align-items-center justify-content-between">
             <h5 class="mb-0">Formulaire d'insertion</h5>
-            <small class="text-muted float-end">Date limite pour faire une annulation d'un vol deja reserve</small>
+            <small class="text-muted float-end">Upload de photo de passeport</small>
         </div>
         <div class="card-body">
-            <form action="insertConstraintAnnulation" method="post">
+            <form action="upload" method="post" enctype="multipart/form-data">
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="idVol">Vol</label>
+                    <label class="col-sm-2 col-form-label" for="dateVol">Fichier</label>
                     <div class="col-sm-10">
-                        <select class="form-control" id="idVol" name="idVol" required>
-                            <% List<Vol> vols = Vol.getAll();
-                            for (Vol vol : vols) {%>
-                                <option value="<%= vol.getIdVol() %>"><%= vol.getIdVol() %> - <%= vol.getDateVol() %> - <%= Avion.getById(vol.getIdAvion()).getModele() %></option>
-                            <% } %>
-                        </select>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="heureAvantVol">Heure avant vol</label>
-                    <div class="col-sm-10">
-                        <input type="number" class="form-control" id="heureAvantVol" name="constraintAnnulation.heureAvantVol" required/>   
+                        <input type="file" class="form-control" id="file" name="file" required/>
                     </div>
                 </div>
                 <div>

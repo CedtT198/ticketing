@@ -14,25 +14,19 @@ import util.MySession;
 @Controller(value="ConstraintReservation")
 public class ConstraintReservationController {
     
-    @Post("insertConstraintReservation")
-    public ModelAndView insertConstraintReservation(@RequestParam("idVol") Integer idVol, @RequestObject ConstraintReservation constraintReservation, MySession session) {
+    @Post("insertConsRes")
+    public ModelAndView insertConsRes(@RequestParam("idVol") Integer idVol, @RequestObject ConstraintReservation constraintReservation, MySession session) {
         ModelAndView m = new ModelAndView("const-reservation.jsp");
 
         try (Connection c = Connexion.getConnection()) {
-            Vol vol = Vol.getById(idVol);
+            Vol vol = Vol.getById(c, idVol);
 
             ConstraintReservation cr = constraintReservation.save(c);
-            if (cr.getHeureAvantVol().isAfter(vol.getDateVol()) || cr.getHeureAvantVol().isEqual(vol.getDateVol())) {
-                vol.setIdConstraintReservation(cr.getIdConstraintReservation());
-                Vol.update(idVol, vol);
-                m.addObject("success", "Insertion done successfuly.", session);
-            }
-            else {
-                m.addObject("error", "L\'heure limite de reservation ne doit pas etre superieur ou egale au date de depart.", session);
-            }
-
+            vol.setIdConstraintReservation(cr.getIdConstraintReservation());
+            Vol.update(idVol, vol);
+            m.addObject("success", "Insertion done successfuly.");
         } catch (Exception e) {
-            m.addObject("error", e.getMessage(), session);
+            m.addObject("error", e.getMessage());
             e.printStackTrace();
         }
         return m;

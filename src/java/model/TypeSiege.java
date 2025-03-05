@@ -13,8 +13,7 @@ public class TypeSiege {
     Double prixTypeSiege;
     String nomTypeSiege;
 
-    public TypeSiege() {
-    }
+    public TypeSiege() {}
     public TypeSiege(Integer idTypeSiege, Double prixTypeSiege, String nomTypeSiege) {
         this.idTypeSiege = idTypeSiege;
         this.prixTypeSiege = prixTypeSiege;
@@ -42,6 +41,7 @@ public class TypeSiege {
         }
         return typesSiege;
     }
+    
     
     public Integer getIdTypeSiege() {
         return idTypeSiege;

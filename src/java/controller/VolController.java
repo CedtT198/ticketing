@@ -32,9 +32,9 @@ public class VolController {
         ModelAndView m = new ModelAndView("liste-vol.jsp");
         try {
             Vol.update(idVol, vol);
-            m.addObject("success", "Updated successfuly.", session);
+            m.addObject("success", "Updated successfuly.");
         } catch (Exception e) {
-            m.addObject("error", e.getMessage(), session);
+            m.addObject("error", e.getMessage());
             e.printStackTrace();
         }
         return m;
@@ -46,9 +46,9 @@ public class VolController {
         ModelAndView m = new ModelAndView("liste-vol.jsp");
         try {
             Vol.delete(idVol);
-            m.addObject("success", "Suppressed successfuly.", session);
+            m.addObject("success", "Suppressed successfuly.");
         } catch (Exception e) {
-            m.addObject("error", e.getMessage(), session);
+            m.addObject("error", e.getMessage());
             e.printStackTrace();
         }
         return m;
@@ -62,9 +62,9 @@ public class VolController {
 
         try (Connection c = Connexion.getConnection()) {
             vol.save(c);
-            m.addObject("success", "Insertion done successfuly.", session);
+            m.addObject("success", "Insertion done successfuly.");
         } catch (Exception e) {
-            m.addObject("error", e.getMessage(), session);
+            m.addObject("error", e.getMessage());
             e.printStackTrace();
         }
         return m;
