@@ -93,7 +93,7 @@
                     <li class="menu-item">
                         <a href="const-annulation.jsp" class="menu-link">
                             <img src="https://cdn.jsdelivr.net/gh/CedtT198/poc-ticketing-assets@main/assets/img/liens/annulation_vol.png"class="w-px-30 h-auto"/> 
-                            <div data-i18n="Analytics">Annulation de reservation</div>
+                            <div data-i18n="Analytics">Annulation de vol</div>
                         </a>
                     </li>
                 </ul>

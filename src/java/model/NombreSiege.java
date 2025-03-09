@@ -23,6 +23,18 @@ public class NombreSiege {
         this.idTypeSiege = idTypeSiege;
     }
 
+    public static List<Integer> getResteSiegePromotionDispo(Integer idVol) {
+        // alaina daoly ny reservation pour idVol
+        // analana ny isany ny siege ao amin'ny promotion raha misy promotion le vol
+        return null;
+    }
+
+
+    public static List<Integer> getResteSiegeDispo(Integer idVol) {
+        // alaina daoly ny reste seza libre pour un vol
+        return null;
+    }
+
 
     public static List<NombreSiege> getByIdAvion(Integer idAvion) {
         List<NombreSiege> sieges = new ArrayList<>();

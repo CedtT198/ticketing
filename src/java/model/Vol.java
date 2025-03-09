@@ -6,30 +6,38 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import util.Connexion;
 import validation.annotation.NotEmpty;
+import validation.annotation.Min;
 
 public class Vol {
     Integer idVol;
 
     @NotEmpty
     LocalDateTime dateVol;
-    Integer idConstraintReservation;
-    Integer idConstraintAnnulation;
+    
+    @Min(1)
+    Integer heureAvantReservation;
+
+    @Min(1)
+    Integer heureAvantAnnulation;
+    
     Integer idAvion;
     Integer idVille;
     Integer idVille_1;
     
     public Vol() {}
-    public Vol(Integer idVol, LocalDateTime dateVol, Integer idConstraintReservation, Integer idConstraintAnnulation, Integer idAvion,
+    public Vol(Integer idVol, LocalDateTime dateVol, Integer heureAvantReservation, Integer heureAvantAnnulation, Integer idAvion,
             Integer idVille, Integer idVille_1) {
         this.idVol = idVol;
         this.dateVol = dateVol;
-        this.idConstraintReservation = idConstraintReservation;
-        this.idConstraintAnnulation = idConstraintAnnulation;
+        this.heureAvantReservation = heureAvantReservation;
+        this.heureAvantAnnulation = heureAvantAnnulation;
         this.idAvion = idAvion;
         this.idVille = idVille;
         this.idVille_1 = idVille_1;
@@ -37,7 +45,7 @@ public class Vol {
 
     public static Vol getById(Connection conn, Integer idVol) throws Exception {
         Vol vol = null;
-        String sql = "SELECT id_vol, date_vol, id_constraint_reservation, id_constraint_annulation, id_avion, id_ville, id_ville_1 FROM Vol WHERE id_vol = ?";
+        String sql = "SELECT id_vol, date_vol, heure_avant_reservation, heure_avant_annulation, id_avion, id_ville, id_ville_1 FROM Vol WHERE id_vol = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         try {
             stmt.setInt(1, idVol); 
@@ -49,8 +57,8 @@ public class Vol {
                     if (timestamp != null) {
                         vol.setDateVol(timestamp.toLocalDateTime());
                     }
-                    vol.setIdConstraintReservation(rs.getObject("id_constraint_reservation", Integer.class));
-                    vol.setIdConstraintAnnulation(rs.getObject("id_constraint_annulation", Integer.class));
+                    vol.setHeureAvantReservation(rs.getObject("heure_avant_reservation", Integer.class));
+                    vol.setHeureAvantAnnulation(rs.getObject("heure_avant_annulation", Integer.class));
                     vol.setIdAvion(rs.getObject("id_avion", Integer.class));
                     vol.setIdVille(rs.getObject("id_ville", Integer.class));
                     vol.setIdVille_1(rs.getObject("id_ville_1", Integer.class));
@@ -69,7 +77,7 @@ public class Vol {
 
     public static List<Vol> getAllFilteredByIdVille(Integer idVille) {
         List<Vol> vols = new ArrayList<>();
-        String sql = "SELECT id_vol, date_vol, id_constraint_reservation, id_constraint_annulation, id_avion, id_ville, id_ville_1 FROM Vol WHERE id_ville = ?";
+        String sql = "SELECT id_vol, date_vol, heure_avant_reservation, heure_avant_annulation, id_avion, id_ville, id_ville_1 FROM Vol WHERE id_ville = ?";
 
         try (Connection conn = Connexion.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -83,8 +91,8 @@ public class Vol {
                     if (timestamp != null) {
                         vol.setDateVol(timestamp.toLocalDateTime());
                     }
-                    vol.setIdConstraintReservation(rs.getObject("id_constraint_reservation", Integer.class));
-                    vol.setIdConstraintAnnulation(rs.getObject("id_constraint_annulation", Integer.class));
+                    vol.setHeureAvantReservation(rs.getObject("heure_avant_reservation", Integer.class));
+                    vol.setHeureAvantAnnulation(rs.getObject("heure_avant_annulation", Integer.class));
                     vol.setIdAvion(rs.getObject("id_avion", Integer.class));
                     vol.setIdVille(rs.getObject("id_ville", Integer.class));
                     vol.setIdVille_1(rs.getObject("id_ville_1", Integer.class));
@@ -100,18 +108,18 @@ public class Vol {
 
 
     public static boolean update(Integer idVol, Vol vol) {
-        String sql = "UPDATE vol SET date_vol = ?, id_constraint_reservation = ?, id_constraint_annulation = ?, id_avion = ?, id_ville = ?, id_ville_1 = ? WHERE id_vol = ?";
+        String sql = "UPDATE vol SET date_vol = ?, heure_avant_reservation = ?, heure_avant_annulation = ?, id_avion = ?, id_ville = ?, id_ville_1 = ? WHERE id_vol = ?";
         
         try (Connection conn = Connexion.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setTimestamp(1, Timestamp.valueOf(vol.getDateVol()));
-            stmt.setObject(2, vol.getIdConstraintReservation());
-            stmt.setObject(3, vol.getIdConstraintAnnulation());
+            stmt.setObject(2, vol.getHeureAvantReservation());
+            stmt.setObject(3, vol.getHeureAvantAnnulation());
             stmt.setObject(4, vol.getIdAvion());
             stmt.setObject(5, vol.getIdVille());
-            stmt.setInt(6, idVol);
-            stmt.setObject(7, vol.getIdVille_1());
+            stmt.setObject(6, vol.getIdVille_1());
+            stmt.setInt(7, idVol);
     
             int affectedRows = stmt.executeUpdate();
             return affectedRows > 0;             
@@ -140,12 +148,12 @@ public class Vol {
 
     
     public Vol save(Connection conn) throws Exception {
-        String sql = "INSERT INTO Vol (date_vol, id_constraint_reservation, id_constraint_annulation, id_avion, id_ville, id_ville_1) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Vol (date_vol, heure_avant_reservation, heure_avant_annulation, id_avion, id_ville, id_ville_1) VALUES (?, ?, ?, ?, ?, ?)";
         
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setTimestamp(1, Timestamp.valueOf(this.getDateVol()));
-            stmt.setObject(2, this.getIdConstraintReservation());
-            stmt.setObject(3, this.getIdConstraintAnnulation());
+            stmt.setObject(2, this.getHeureAvantReservation());
+            stmt.setObject(3, this.getHeureAvantAnnulation());
             stmt.setObject(4, this.getIdAvion());
             stmt.setObject(5, this.getIdVille());
             stmt.setObject(6, this.getIdVille_1());
@@ -174,7 +182,7 @@ public class Vol {
 
     public static List<Vol> getAll() {
         List<Vol> vols = new ArrayList<>();
-        String sql = "SELECT id_vol, date_vol, id_constraint_reservation, id_constraint_annulation, id_avion, id_ville, id_ville_1 FROM Vol";
+        String sql = "SELECT id_vol, date_vol, heure_avant_reservation, heure_avant_annulation, id_avion, id_ville, id_ville_1 FROM Vol";
 
         try (Connection conn = Connexion.getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -187,8 +195,8 @@ public class Vol {
                 if (timestamp != null) {
                     vol.setDateVol(timestamp.toLocalDateTime());
                 }
-                vol.setIdConstraintReservation(rs.getObject("id_constraint_reservation", Integer.class));
-                vol.setIdConstraintAnnulation(rs.getObject("id_constraint_annulation", Integer.class));
+                vol.setHeureAvantReservation(rs.getObject("heure_avant_reservation", Integer.class));
+                vol.setHeureAvantAnnulation(rs.getObject("heure_avant_annulation", Integer.class));
                 vol.setIdAvion(rs.getObject("id_avion", Integer.class));
                 vol.setIdVille(rs.getObject("id_ville", Integer.class));
                 vol.setIdVille_1(rs.getObject("id_ville_1", Integer.class));
@@ -202,7 +210,6 @@ public class Vol {
         return vols;
     }
 
-
     public Integer getIdVol() {
         return idVol;
     }
@@ -215,17 +222,17 @@ public class Vol {
     public void setDateVol(LocalDateTime dateVol) {
         this.dateVol = dateVol;
     }
-    public Integer getIdConstraintReservation() {
-        return idConstraintReservation;
+    public Integer getHeureAvantAnnulation() {
+        return heureAvantAnnulation;
     }
-    public void setIdConstraintReservation(Integer idConstraintReservation) {
-        this.idConstraintReservation = idConstraintReservation;
+    public void setHeureAvantAnnulation(Integer heureAvantAnnulation) {
+        this.heureAvantAnnulation = heureAvantAnnulation;
     }
-    public Integer getIdConstraintAnnulation() {
-        return idConstraintAnnulation;
+    public Integer getHeureAvantReservation() {
+        return heureAvantReservation;
     }
-    public void setIdConstraintAnnulation(Integer idConstraintAnnulation) {
-        this.idConstraintAnnulation = idConstraintAnnulation;
+    public void setHeureAvantReservation(Integer heureAvantReservation) {
+        this.heureAvantReservation = heureAvantReservation;
     }
     public Integer getIdAvion() {
         return idAvion;

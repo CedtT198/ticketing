@@ -18,7 +18,7 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="idTypeSiege">Type de siege</label>
                     <div class="col-sm-10">
-                        <select class="form-control" id="idTypeSiege" name="promotion.idTypeSiege" required>
+                        <select class="form-control" id="idTypeSiege" name="Promotion.idTypeSiege" required>
                             <% List<TypeSiege> typeSieges = TypeSiege.getAll();
                             for (TypeSiege typeSiege : typeSieges) {%>
                                 <option value="<%= typeSiege.getIdTypeSiege() %>"><%= typeSiege.getNomTypeSiege() %></option>
@@ -29,7 +29,7 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="idVol">Vol</label>
                     <div class="col-sm-10">
-                        <select class="form-control" id="idVol" name="promotion.idVol" required>
+                        <select class="form-control" id="idVol" name="Promotion.idVol" required>
                             <% List<Vol> vols = Vol.getAll();
                             for (Vol vol : vols) {%>
                                 <option value="<%= vol.getIdVol() %>"><%= vol.getIdVol() %> - <%= vol.getDateVol() %> - <%= Avion.getById(vol.getIdAvion()).getModele() %></option>
@@ -40,13 +40,13 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="nombreSiege">Nombre de siege</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="nombreSiege" name="promotion.nombreSiege" placeholder="3 siege a promouvoir par exemple." required/>
+                        <input type="number" class="form-control" id="nombreSiege" name="Promotion.nombreSiege" placeholder="3 siege a promouvoir par exemple." required/>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="pourcentage">Valeur de la promotion</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="pourcentage" name="promotion.pourcentage" placeholder="Exprime en %. Par exemple 5% du prix habituel." required/>
+                        <input type="number" class="form-control" id="pourcentage" name="Promotion.pourcentage" placeholder="Exprime en %. Par exemple 5% du prix habituel." required/>
                     </div>
                 </div>
                 <div>

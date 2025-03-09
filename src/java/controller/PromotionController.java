@@ -6,6 +6,7 @@ import Annotation.Post;
 import Annotation.RequestObject;
 import model.NombreSiege;
 import model.Promotion;
+import model.Vol;
 import model.Avion;
 import util.Connexion;
 import util.ModelAndView;
@@ -19,7 +20,7 @@ public class PromotionController {
         ModelAndView m = new ModelAndView("promotion.jsp");
 
         try (Connection c = Connexion.getConnection()) {
-            Avion avion = Avion.getById(c, promotion.getIdVol());
+            Avion avion = Avion.getById(c, Vol.getById(c,promotion.getIdVol()).getIdAvion());
             boolean response = NombreSiege.checkLeftSiege(avion.getIdAvion(), promotion.getIdTypeSiege(), promotion.getNombreSiege());
             if (response) {
                 promotion.save(c);

@@ -14,22 +14,24 @@
         padding: 0;
         color: white;
         background-color: #3585cd;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-weight: 100;
     }
     .container {
         text-align:center;
     }
     h1 {
-        font-size: 50px;
+        font-size: 75px;
     }
     p {
-        font-size: 15px;
+        font-size: 18px;
     }
 </style>
 
 <body>
     <div class="container">
         <h1>404 - Not Found</h1>
-        <p>Oops! Page introuvable.</p>
+        <p>Oops! La ressource ou la page demandee est introuvable.</p>
     </div>
 </body>
 </html>

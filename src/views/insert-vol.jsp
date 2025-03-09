@@ -17,13 +17,13 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="dateVol">Date vol</label>
                     <div class="col-sm-10">
-                        <input type="datetime-local" class="form-control" id="dateVol" name="vol.dateVol" required/>
+                        <input type="datetime-local" class="form-control" id="dateVol" name="Vol.dateVol" required/>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="idAvion">Avion</label>
                     <div class="col-sm-10">
-                        <select class="form-control" id="idAvion" name="vol.idAvion" required>
+                        <select class="form-control" id="idAvion" name="Vol.idAvion" required>
                             <% List<Avion> avions = Avion.getAll();
                             for (Avion avion : avions) {%>
                                 <option value="<%= avion.getIdAvion() %>"><%= avion.getModele() %></option>
@@ -34,7 +34,7 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="idVille">Ville de depart</label>
                     <div class="col-sm-10">
-                        <select class="form-control" id="idVille" name="vol.idVille" required>
+                        <select class="form-control" id="idVille" name="Vol.idVille" required>
                             <% List<Ville> villes = Ville.getAll();
                             for (Ville ville : villes) {%>
                                 <option value="<%= ville.getIdVille() %>"><%= ville.getNomVille() %></option>
@@ -45,7 +45,7 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="idVille_1">Ville d'arrivee</label>
                     <div class="col-sm-10">
-                        <select class="form-control" id="idVille_1" name="vol.idVille_1" required>
+                        <select class="form-control" id="idVille_1" name="Vol.idVille_1" required>
                             <% for (Ville ville : villes) {%>
                                 <option value="<%= ville.getIdVille() %>"><%= ville.getNomVille() %></option>
                             <% } %>

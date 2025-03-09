@@ -58,7 +58,7 @@
                     type="text"
                     class="form-control"
                     id="username"
-                    name="admin.username"
+                    name="Admin.username"
                     placeholder="Enter your username"
                     value="admin1"
                     autofocus/>
@@ -72,7 +72,7 @@
                       type="password"
                       class="form-control"
                       id="password"
-                      name="admin.password"
+                      name="Admin.password"
                       value="admin1"
                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                       aria-describedby="password"/>

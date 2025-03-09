@@ -1,8 +1,6 @@
 <%@page import="model.Vol" %>
 <%@page import="model.Ville" %>
 <%@page import="model.Avion" %>
-<%@page import="model.ConstraintAnnulation" %>
-<%@page import="model.ConstraintReservation" %>
 <%@page import="java.util.ArrayList" %>
 <%@page import="java.util.List" %>
 <%@page import="java.util.Map" %>
@@ -33,15 +31,15 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <label class="col-sm-2 col-form-label" for="dateVol">Date vol</label>
-                                <div class="col-sm-10">
+                                <label class="col-sm-12 col-form-label" for="dateVol">Date vol</label>
+                                <div class="col-sm-12">
                                     <input type="datetime-local" class="form-control" id="dateVol" name="dateVol" required/>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col mb-6">
-                                    <label class="col-sm-2 col-form-label" for="idVilleDepart">Ville depart</label>
                                     <div class="col-sm-12">
+                                        <label class="col-form-label" for="idVilleDepart">Ville depart</label>
                                         <select class="form-control" id="idVilleDepart" name="idVilleDepart" required>
                                             <% for (Ville ville : villes) { %>
                                                 <option value="<%= ville.getIdVille() %>"><%= ville.getNomVille() %></option>
@@ -50,8 +48,8 @@
                                     </div>
                                 </div>
                                 <div class="col mb-6">
-                                    <label class="col-sm-2 col-form-label" for="idVilleArrivee">Ville d'arrivee</label>
                                     <div class="col-sm-12">
+                                        <label class="col-form-label" for="idVilleArrivee">Ville d'arrivee</label>
                                         <select class="form-control" id="idVilleArrivee" name="idVilleArrivee" required>
                                             <% for (Ville ville : villes) { %>
                                                 <option value="<%= ville.getIdVille() %>"><%= ville.getNomVille() %></option>
@@ -59,9 +57,9 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div><br>
                             <div class="row">
-                                <div class="col-sm-10">
+                                <div class="col-sm-12">
                                     <div class="row">
                                         <p>Avec promotion : </p>
                                         <div class="col mb-4">
@@ -112,13 +110,13 @@
         <table class="table">
             <thead class="table-dark">
                 <tr>
-                    <th>id vol</th>
+                    <%-- <th>id vol</th> --%>
                     <th>Date</th>
-                    <th>Avion</th>
+                    <%-- <th>Avion</th> --%>
                     <th>Depart</th>
                     <th>Destination</th>
-                    <%-- <th>Date Limite d'annulation</th>
-                    <th>Limite de reservation</th> --%>
+                    <th>Reservation</th>
+                    <th>Annulation</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -126,20 +124,20 @@
             <tbody class="table-border-bottom-0">
                 <% for (Vol vol : vols) {%>
                     <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i><%= vol.getIdVol() %></td>
+                        <%-- <td><i class="fab fa-angular fa-lg text-danger me-3"></i><%= vol.getIdVol() %></td> --%>
                         <td><%= vol.getDateVol() %></td>
-                        <td><%= Avion.getById(vol.getIdAvion()).getModele() %></td>
+                        <%-- <td><%= Avion.getById(vol.getIdAvion()).getModele() %></td> --%>
                         <td><%= Ville.getById(vol.getIdVille()).getNomVille() %></td>
                         <td><%= Ville.getById(vol.getIdVille_1()).getNomVille() %></td>
-                        <% if (vol.getIdConstraintReservation() != null) { %>
-                            <td><%= ConstraintReservation.getById(vol.getIdConstraintReservation()).getHeureAvantVol() %>H avant vol</td>
+                        <% if (vol.getHeureAvantReservation() != null) { %>
+                            <td><%= vol.getHeureAvantReservation() %>H avant vol</td>
                         <% } else { %>
-                            <%-- <td></td> --%>
+                            <td></td>
                         <% } %>
-                        <% if (vol.getIdConstraintAnnulation() != null) { %>
-                            <td><%= ConstraintAnnulation.getById(vol.getIdConstraintAnnulation()).getHeureAvantVol() %>H avant vol</td>
+                        <% if (vol.getHeureAvantAnnulation() != null) { %>
+                            <td><%= vol.getHeureAvantAnnulation() %>H avant vol</td>
                         <% } else { %>
-                            <%-- <td></td> --%>
+                            <td></td>
                         <% } %>
                         <td>
                             <div class="col-lg-4 col-md-6">
@@ -155,17 +153,16 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="row">
-                                                            <div class="col mb-12">
+                                                            <div class="col-md-12">
                                                                 <label class="col-sm-2 col-form-label" for="dateVol">Date vol</label>
                                                                 <div class="col-sm-12">
                                                                     <input type="hidden" name="idVol" id="idVol" value="<%= vol.getIdVol() %>">
-                                                                    <input type="datetime-local" class="form-control" id="dateVol" name="vol.dateVol" value="<%= vol.getDateVol() %>" required/>
+                                                                    <input type="datetime-local" class="form-control" id="dateVol" name="Vol.dateVol" value="<%= vol.getDateVol() %>" required/>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="row g-2">
-                                                            <div class="col mb-0">
-                                                                <select class="form-control" id="idAvion" name="vol.idAvion" required>
+                                                            <div class="col-md-12">
+                                                                <label class="col-sm-12 col-form-label" for="idAvion">Avion</label>
+                                                                <select class="form-control" id="idAvion" name="Vol.idAvion" required>
                                                                     <% for (Avion avion : avions) {
                                                                         if (vol.getIdAvion() == avion.getIdAvion()) { %>
                                                                             <option value="<%= avion.getIdAvion() %>" selected><%= avion.getModele() %></option>
@@ -175,10 +172,23 @@
                                                                     } %>
                                                                 </select>
                                                             </div>
-                                                            <div class="col mb-0">
-                                                                <select class="form-control" id="idVille" name="vol.idVille" required>
+                                                            <div class="col-md-6">
+                                                                <label class="col-sm-12 col-form-label" for="idVille">Ville depart</label>
+                                                                <select class="form-control" id="idVille" name="Vol.idVille" required>
                                                                     <% for (Ville ville : villes) { 
                                                                         if (vol.getIdVille() == ville.getIdVille()) { %>
+                                                                            <option value="<%= ville.getIdVille() %>" selected><%= ville.getNomVille() %></option>
+                                                                        <% } else { %>
+                                                                            <option value="<%= ville.getIdVille() %>"><%= ville.getNomVille() %></option>
+                                                                        <% }
+                                                                    } %>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="col-sm-12 col-form-label" for="idVille_1">Ville destination</label>
+                                                                <select class="form-control" id="idVille_1" name="Vol.idVille_1" required>
+                                                                    <% for (Ville ville : villes) { 
+                                                                        if (vol.getIdVille_1() == ville.getIdVille()) { %>
                                                                             <option value="<%= ville.getIdVille() %>" selected><%= ville.getNomVille() %></option>
                                                                         <% } else { %>
                                                                             <option value="<%= ville.getIdVille() %>"><%= ville.getNomVille() %></option>

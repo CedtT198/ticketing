@@ -13,19 +13,35 @@ import util.MySession;
 @Controller(value="vol")
 public class VolController {
     
-    // @Get("newVol")
-    // public ModelAndView newVol() {
-    //     ModelAndView m = new ModelAndView("insert-vol.jsp");
-    //     Connection c = Connexion.getConnection();
-    //     m.addObject("avions", Avion.getAll(c));
-    //     m.addObject("villes", Ville.getAll(c));
-    //     try {
-    //         c.close();
-    //     } catch (SQLException e) {
-    //         e.printStackTrace();
-    //     }
-    //     return m;
-    // }
+    @Post("updateHeureAvantReservation")
+    public ModelAndView updateHeureAvantReservation(@RequestParam("idVol") Integer idVol, @RequestParam("heure") Integer heure, MySession session) {
+        ModelAndView m = new ModelAndView("const-reservation.jsp");
+        try (Connection c = Connexion.getConnection()) {
+            Vol vol = Vol.getById(c, idVol);
+            vol.setHeureAvantReservation(heure);
+            Vol.update(idVol, vol);
+            m.addObject("success", "Vol constraint added successfuly.");
+        } catch (Exception e) {
+            m.addObject("error", e.getMessage());
+            e.printStackTrace();
+        }
+        return m;
+    }
+    
+    @Post("updateHeureAvantAnnulation")
+    public ModelAndView updateHeureAvantAnnulation(@RequestParam("idVol") Integer idVol, @RequestParam("heure") Integer heure, MySession session) {
+        ModelAndView m = new ModelAndView("const-annulation.jsp");
+        try (Connection c = Connexion.getConnection()) {
+            Vol vol = Vol.getById(c, idVol);
+            vol.setHeureAvantAnnulation(heure);
+            Vol.update(idVol, vol);
+            m.addObject("success", "Vol constraint added successfuly.");
+        } catch (Exception e) {
+            m.addObject("error", e.getMessage());
+            e.printStackTrace();
+        }
+        return m;
+    }
 
     @Post("updateVol")
     public ModelAndView updateVol(@RequestParam("idVol") Integer idVol, @RequestObject Vol vol, MySession session) {
@@ -42,7 +58,6 @@ public class VolController {
 
     @Post("deleteVol")
     public ModelAndView deleteVol(@RequestParam("idVol") Integer idVol, MySession session) {
-        
         ModelAndView m = new ModelAndView("liste-vol.jsp");
         try {
             Vol.delete(idVol);
@@ -57,9 +72,6 @@ public class VolController {
     @Post("insertVol")
     public ModelAndView insertVol(@RequestObject Vol vol, MySession session) {
         ModelAndView m = new ModelAndView("insert-vol.jsp");
-        // m.addObject("avions", Avion.getAll(c));
-        // m.addObject("villes", Ville.getAll(c));
-
         try (Connection c = Connexion.getConnection()) {
             vol.save(c);
             m.addObject("success", "Insertion done successfuly.");

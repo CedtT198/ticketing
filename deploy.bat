@@ -35,7 +35,7 @@ rem copier le répertoire views dans temp
 xcopy "%projectPath%\src\views" "%tempPath%\views\" /i
 xcopy "%projectPath%\index.jsp" "%tempPath%\" /i
 xcopy "%projectPath%\error.jsp" "%tempPath%\views" /i
-xcopy "%projectPath%\notFound.jsp" "%tempPath%\views" /i
+xcopy "%projectPath%\notfound.jsp" "%tempPath%\views" /i
 xcopy "%projectPath%\indexFront.jsp" "%tempPath%\" /i
 echo Jsp files copied successfuly. 
 echo.

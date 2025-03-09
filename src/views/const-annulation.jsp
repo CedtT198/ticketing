@@ -13,7 +13,7 @@
             <small class="text-muted float-end">Date limite pour faire une annulation d'un vol deja reserve</small>
         </div>
         <div class="card-body">
-            <form action="insertConstraintAnnulation" method="post">
+            <form action="updateHeureAvantAnnulation" method="post">
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="idVol">Vol</label>
                     <div class="col-sm-10">
@@ -26,9 +26,9 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="heureAvantVol">Heure avant vol</label>
+                    <label class="col-sm-2 col-form-label" for="heure">Heure avant vol</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="heureAvantVol" name="constraintAnnulation.heureAvantVol" required/>   
+                        <input type="number" class="form-control" id="heure" name="heure" required/>   
                     </div>
                 </div>
                 <div>
@@ -45,7 +45,7 @@
                     <% } %>
                 </div>
                 <div class="row justify-content-end">
-                    <div class="col-sm-10">
+                    <div class="col-sm-12">
                         <button type="submit" class="btn btn-primary">Insert</button>
                     </div>
                 </div>
